@@ -1,0 +1,9 @@
+Package: mrmctools
+Title: Statistical Tools to Support Multi-Reader, Multi-Case (MRMC) Study Designs
+Version: 0.1.0.9000
+Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
+Description: What the package does (one paragraph).
+Depends: R (>= 3.4.2)
+License: GNU version 3
+Encoding: UTF-8
+LazyData: true
