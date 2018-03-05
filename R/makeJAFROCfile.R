@@ -1,4 +1,12 @@
-###### Read annoated workstation file and make a JAFROC output file
+#' Produce JAFROC analysis storage file.
+#' 
+#' This is a key function in the JAFROC analysis paradigm. This is the datasource for the external package RJafroc. It also holds the data in a normalize function to support many analyses for this package. 
+#' 
+#' @param flowchartdata This is a dataframe produced by the function applyflowchart. 
+#' @param outputfile A text string for an excel file to be produced by the function. The file name can have the path and needs to end in .xlsx. 
+#' @return This function does not have a return. It produces a saved output file for later use.
+#' @examples 
+#' makeJAFROCfile(flowchartdata=raw2,outputfile="testJAFROC.xlsx")
 
 
 makeJAFROCfile <- function(flowchartdata, outputfile){

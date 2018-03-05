@@ -1,4 +1,14 @@
-## function to calculate detection rates by lesions
+#' Tabulate reader detections.
+#' 
+#' This function tabulates the number of true positives dections for each lesion at each modality.
+#' The function reads the standard excel file that contains data to support JAFROC analyses. 
+#' 
+#' @param JAFROCfilename The is the excel file produced by the makeJAFROCfile function. This file is the source of most JAFROC analyses. 
+#' @param wide  Logical flag that is used to indicate whether a wide (columns for various modalities) or tall (data rows are indexed by modality) dataset is returned. The default is a wide datafile.
+#' @return  A dataframe with the detection results. For this determination, a detection is any localization where the primary task confidence is greater than or equal to the study minimum detection confidence as set in the \code{applyflowchart} function. 
+#' @examples
+#' derivedetections("testJAFROC.xlsx")
+#' derivedetections("testJAFROC.xlsx", wide=F)
 
 derivedetections <- function(JAFROCfilename,wide=T){
 datafilename <- JAFROCfilename

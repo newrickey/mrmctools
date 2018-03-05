@@ -1,8 +1,31 @@
-################## Process Raw Workstation File #################
+#' Read and normalize reader workstation file.
+#' 
+#' This is the first function called when conducting a MRMC study using the Discovery Workstation computer system. 
+#' The workstation has algorithm that match reader marks with reference ROIs. The output file is study-specific.
+#' To help generalize the analysis and all of the functions that follow, this function renames the study-specific variables into 
+#' standardized names.
+#' 
+#' The function requires the use of an anonymization file. This file links back the datasets (image files) back to doses and patient cases.
+#' See the vignette for an example and elaboration of this file. 
+#' 
+#' @param workstationdata A dataframe with the raw Discovery Workstation export file
+#' @param deidentificationdata A dataframe with columns for patient ID a column with dataset IDs for each modality in the study
+#' @param refname Text string with the name of the reference modality
+#' @param caseindex Text string with the name of the patient ID variable in the deidentification file
+#' @param RefID Text string with the variable name for the reference marking unique identifier in the workstation file
+#' @param RefDataID Text string with the variable name for the reference dose dataset ID in the workstation file
+#' @param RefDetConf Text string with the variable name for the confidence score related to the reference detection (not primary task)
+#' @param RefCode Text string with the varaible name for diagnosis code assigned by the reference reader for the the lesion
+#' @param RefPTC Text string with the varaible name for the primary task confidence (PTC). 
+#' @param datasetname Text string with the variable name for the reader's dataset name pertaining to the ROI being evaluated
+#' @param ObserverPTC Text string with the variable name for the reader's assigned primary task confidence (PTC). This is the main confidence score used for the analysis.
+#' @param ObserverCode Text string with the variable name for the reader's assigned diagnosis of the ROI.
+#' @param ObserverROIID Text string for the variable name for the reader's unique ROI database ID.
+#' @param ReaderFUllID Text string with the username (typically) used to log into the study. This represents the starting point for the reader identification in the dataset.
+#' @param anonymizereader A logical to replace the internal reader ID with an anonymized reader ID by default. Setting this to false will possibly identify the data in the analysis.
+#' @param expandcases A logical to ensure that the joins that happen in the program include all combinations of readers and modalities. Generally this needs to remain as True.
+#' @return A dataframe with standardized names
 
-## input Requirements: 
-### R data object of the CSV file from discovery workstation (to account for some expectation of preprocessing of data)
-### Mapping of the names to the workstation
 
 
 readworkstationfile <- function(workstationdata, deidentificationdata, refname, caseindex,

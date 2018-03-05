@@ -1,3 +1,16 @@
+#' Plot reader sensitivity for a particular reader.
+#' 
+#' This function produces a plot that shows how reader detections vary by modality as the sensitivity detection threshold increases. Note, this function
+#' takes a parameter that indicates the reader number. This needs to be a two character text string with a leader "0" if necessary ("01" for reader 1).
+#' @param JAFROCfilename The is the excel file produced by the makeJAFROCfile function. This file is the source of most JAFROC analyses. 
+#' @param readerid Character string for the reader ID. The default is "GEE" which means the figure will only show the GEE lines by modality.
+#' @param addFactor If set to true, the function will use the flevels and flabels to format the modalities
+#' @param flevels Text object that contains the factor levels for formatted printing
+#' @param flabels Text object that contains the factor labels for formatted printing
+#' @param getminmax  A logical parameter to indicate a call to the \code{getMaxConfidence} function. If set to true, the figure will be truncated at this limit.
+#' @return \code{ggplot2} figure object.
+
+
 plotthreshold_reader <- function(jafrocfile, readerid="GEE",addFactor=F,flevels=NA,flabels=NA,getminmax=F){
   pooledsens <- NULL
   

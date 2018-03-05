@@ -1,6 +1,15 @@
-### Plot Distribution of Scores
+#' Plot rating histogram.
+#' 
+#' This function plots a stacked histogram indicating the lesion localizations and non-lesion localizations by confidence rating. 
+#' The function returns a ggplot object.
+#' 
+#' @param JAFROCfilename The is the excel file produced by the makeJAFROCfile function. This file is the source of most JAFROC analyses. 
+#' @return \code{ggplot2} figure object.
+#' @examples 
+#' plotPTC("testJAFROC.xlsx")
 
-plotPTC <- function(datafilename){
+plotPTC <- function(JAFROCfilename){
+datafilename <- JAFROCfilename
 
 TPsaved <- readxl::read_excel(datafilename, "TP")
 

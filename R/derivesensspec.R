@@ -1,4 +1,20 @@
-### make sensitivity and specificity data based on JAFROC data file
+#' Calculate patient-level sensitivity and specificity.
+#' 
+#' The sensitivity denominator will be the number of cases with at least one lesion. 
+#' The specificity denominator will be the number of cases without any primary task lesions. 
+#' For sensitivity, the calculation requires at least one reference lesion to be found with 
+#' confidence greater than what has been specified in the function call. For specificity, it 
+#' requires no false positive ROIs with confidence greater than the threshold.  
+#' In addition to reader-modality-specific results, the GEE estimate of the 
+#' common sensitivity by modality is returned.
+#' 
+#' 
+#' @param JAFROCfilename The is the excel file produced by the makeJAFROCfile function. This file is the source of most JAFROC analyses. 
+#' @param sensitivitythreshold A numeric value representing the primary task confidence value that true positive localization need to be greater than to be considered a true detectioin. 
+#' @param specificitythreshold A numeric value representing the primary task confidence value that a non-localization needs to be greater than to be counted as a false positive within a normal case.
+#' @return A dataframe with results
+#' @examples
+#' derivesensspec("testJAFROC.xlsx", 10, 10)
 
 
 

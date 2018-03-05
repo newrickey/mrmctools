@@ -1,4 +1,14 @@
-## Delta FOM Plot
+#' Plot Delta FOM from Reference Modality.
+#' 
+#' This function plots the differences and 95\% CIs from the reference dose in a forest plot. 
+#' The function can draw a non-inferiority limit onto the figure at a value specified.
+#' 
+#' @param dataframe  This the dataframe that is the second list element returned by the prepareestimates function.  The array is processed outside this function to allow for labeling and formatting the modalities before the plot is generated.
+#' @param themethod A character string that uses one of the following analysis methods: RRRC (random reader random case), FRRC (fixed reader, random case), RRFC (random reader, random case)
+#' @param refdose A text string specifying the name of the reference dose that should be printed on x-axis label
+#' @param nonilimit A numeric value to indicate where a dashed line should be drawn for a non-inferiority line to be drawn
+#' @param thetreatment A text string that indicates the name of the variable that pertains to the name of the modality. The JAFROC analysis will automatically use Treatment as this name. If for some reason the name is changed, this will allow that new name to be specified.
+#' @return \code{ggplot2} figure object.
 
 
 plotDeltaFOM <- function(dataframe, themethod,refdose="Routine Dose",nonilimit=-0.05,thetreatment="Treatment"){

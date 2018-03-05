@@ -1,4 +1,20 @@
-### Determine Essential Lesions based on JAFROC data file and Min PTC confidence
+#' Determine essential lesions.
+#' 
+#' This function calculates a subset of lesions that are denoted "essential lesions".
+#' An essential lesion is one that has been detected by a majority of the readers at the routine dose. 
+#' It represents a subset of lesions that could be considered for essential at any reduced dose (or altered imaging strategy) to detect. 
+#' The function returns the data frame with all detections by modality by default. 
+#' If the output file is specified, an output file will include not only this detection summary (sheet: detections), 
+#' the excel file will also include a listing of just the essential lesions with the detection rates on the reference dose 
+#' and a results summary that includes an analysis of the number of correct interpretations. 
+#' See the vignette for the interpretations of essential lesions.  
+#' 
+#' @param JAFROCfilename The is the excel file produced by the makeJAFROCfile function. This file is the source of most JAFROC analyses. 
+#' @param refname A text string with the exact character string that corresponds to the reference (or routine) dose
+#' @param essentiallesionfilename  A text string that if supplied, represents the file name produced with the working tables for the essential lesion detections. If the parameter is left null, the detections dataset is return that tabulations of the detection rates for each lesion and a determination as to whether it is an essential lesion. 
+#' @examples
+#' essentiallesions("testJAFROC.xlsx")
+#' essentiallesions("testJAFROC.xlsx", "essentiallesions.xlsx")
 
 
 
@@ -150,15 +166,16 @@ essentiallesions <- function(JAFROCfilename,refname,essentiallesionfilename=NA){
   finaldf <- dplyr::select(finaldf, -iscase)
   finaldf <- dplyr::arrange(finaldf, ModalityID, source)
   
+  # now rename finaldf for later use
+  essentiallesionresults <- finaldf
   
   if (!is.na(essentiallesionfilename)){
-    ellist <- c("finaldf","detections", "essentiallesions")
-    WriteXLS(ellist, ExcelFileName=essentiallesionfilename)
+    ellist <- c("detections", "essentiallesions", "essentiallesionresults")
+    WriteXLS::WriteXLS(ellist, ExcelFileName=essentiallesionfilename)
   }
   
-  
+
   return( detections)
-# return(  finaldf)
 }
 
 

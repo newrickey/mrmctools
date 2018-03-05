@@ -1,4 +1,10 @@
-### prepare estimates
+#' Preprocess raw JAFROC results.
+#' 
+#' This function reads and prepares the result object generated from \code{RJafroc} for plotting. 
+#' 
+#' @param JAFROCresults This is object produced by the package \code{RJafroc}. See the vingette for details. 
+#' @param refname  Character string that has the internal value indicating the reference dose for the study.
+#' @return Array filled with results. 
 
  prepareestimates <- function(JAFROCresults, refname){
   

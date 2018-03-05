@@ -1,3 +1,13 @@
+#' Plot confidence scores by bin
+#' 
+#' This function provides violin plots with jittered data for data according to the six classification bins for reader marks (see vignette). There is a simple parameter to change "PT" to something else, but the nature of x-axis design is that the replacement text needs to be brief.
+#' 
+#' @param flowdata A dataframe that has been returned by the applyflowchart function
+#' @param PTtext A text string with the characters that is used describe the primary task. The function defaults to the generic text "PT".
+
+
+
+
 plotPTCbins <- function(flowdata, PTtext="PT"){
   
   observerdata <- dplyr::filter(flowdata, !is.na(ObserverROIID))

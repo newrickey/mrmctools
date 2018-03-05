@@ -1,5 +1,13 @@
-### derive lesion specific detection rates
-
+#' Calculate sensitivity for each lesion
+#' 
+#' This function calculates a lesion specific sensitivity analysis. The denominator will be the number of lesions. The numerator will be the number of detections, by reader and modality, greater than the threshold set. Note, this function uses only greater than in the determination. For exmaple, if the value 0 is used, only detections with primary task confidence > 0 will be considered. It is possible to inconsistencies in thresholds between this threshold and the overall study threshold set in the applyflowchart function.  In addition to reader-modality-specific results, the GEE estimate of the common sensitivity by modality is returned.
+#' 
+#' @param JAFROCfilename The is the excel file produced by the makeJAFROCfile function. This file is the source of most JAFROC analyses. 
+#' @param sensitivitythreshold A numeric value representing the value that all primary task confidence must be greater than to be considered a true detection. The default value is 0, which impies that the reader must assign some non-zero primary task confidence to the detection for it to be considered a true positive.
+#' @return A dataframe with lesion sensitivity 
+#' @examples
+#' derivelesionsens("testJAFROC.xlsx")
+#' derivelesionsens("testJAFROC.xlsx", sensitivitythreshold=50) 
 
 derivelesionsens <- function(JAFROCfilename,sensitivitythreshold=0){
   
