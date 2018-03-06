@@ -8,5 +8,8 @@ Imports: tidyverse, WriteXLS, RJafroc
 License: GNU version 3
 Encoding: UTF-8
 LazyData: true
-Suggests: testthat
+Suggests: testthat,
+    knitr,
+    rmarkdown
 RoxygenNote: 6.0.1
+VignetteBuilder: knitr
