@@ -3,7 +3,7 @@ Title: Statistical Tools to Support Multi-Reader, Multi-Case (MRMC) Study Design
 Version: 1.0.0
 Authors@R: person("Rickey", "Carter", email = "carter.rickey@mayo.edu", role = c("aut", "cre"))
 Description: The package provides a framework for pre-processing and analyzing MRMC study designs. There are a series of exploratory graphics that have been written to understand the reader performances. The package also provides extensions to the graphics in the RJafroc package.
-Depends: R (>= 3.4.2), ggplot2, stats,magrittr
+Depends: R (>= 3.4.1), ggplot2, stats,magrittr
 Imports: WriteXLS, RJafroc, dplyr,binom,geepack,readxl,tidyr,scales
 License: GPL-3 
 Encoding: UTF-8
