@@ -5,8 +5,8 @@
 #' 
 #' @param JAFROCfilename The is the excel file produced by the makeJAFROCfile function. This file is the source of most JAFROC analyses. 
 #' @return \code{ggplot2} figure object.
-#' @examples 
-#' plotPTC("testJAFROC.xlsx")
+#' @export
+
 
 plotPTC <- function(JAFROCfilename){
 datafilename <- JAFROCfilename

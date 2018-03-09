@@ -25,6 +25,3 @@ This function normalizes the readerworkstation file (the data that is passed to 
 The coding used to designate the primary task ROIs is a requried parameter. 
 The includeA and includeC parameters define some special predetermined exclusions from the function. See the vignette for further elaboration of these parameters.
 }
-\examples{
-applyflowchart(raw1, PTcodes=c("91"), PTCthreshold = 1, includeA=T,includeC=T)
-}

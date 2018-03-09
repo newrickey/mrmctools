@@ -52,7 +52,10 @@ The package includes a dataset pairing. The anonymization file is \code{demoanon
 
 
 ```{r readdata, message=FALSE, warning=FALSE}
+library(mrmctools)
+data(demodata)
 rawdata_t1 <- demodata
+data(demoanon)
 rawdeidentify <- demoanon
 ```
 
@@ -84,6 +87,11 @@ In the preprocessing process, two main functions will be used: \code{readerworks
 Run the function \code{readworkstationfile}. The function has parameters that map the workstation variable names to the standardized names. There are also two additional parameters: \code{anonymizereader} and \code{expandcases}. Both of these should generally be true. The reader’s lanids are recorded by the workstation. \code{anonymizereader} replaces these with a randomly assigned integer. \code{expandcases} happens to provide some error control in case there are some missed combinations of readers and lesions (i.e., a lesion that was never identified by any of the readers on any of the imaging strategies). 
 
 ```{r}
+#use the order in which you want them plotted in this case
+# these same labels will be used later for additional plotting purposes
+flevels=c("B30_200", "I30_2_160", "B30_120", "I30_2_120", "I30_2_100")
+flabels=c("FBP 200 QRM", "IR 160 QRM", "FBP 120 QRM", "IR 120 QRM", "IR 100 QRM")
+
 raw1 <- readworkstationfile(workstationdata=rawdata_t1, 
                   deidentificationdata=rawdeidentify,
                   refname="B30_200",  
@@ -130,7 +138,7 @@ kable(head(raw2))
 ## ``plotPTCbins``
 A helper function has been created to examine the confidence score usage of the final flow chart data file (raw2 above).  The function will jitter the ROI PTC by bin. The mean and count will be displayed on the figure by default. There is currently only one parameter option for the figure--a descriptive name for the primary task can be supplied. The default simply using the abbreviation PT. 
 
-```{r, fig.width=10}
+```{r, fig.width=15, fig.height=20}
 plotPTCbins(raw2)
 ```
 
@@ -157,7 +165,7 @@ TIP: In case there is some debate as to what the minimum confidence score for in
 ## ``plotPTC``
 Once the JAFROC file is completed, it can be used to produce an additional confidence score visulization. This figure pools the reader data to show how the confidence varies between lesion localizations and non-lesion localizations.  Normally, one sees clear separation in the score usage. If this is not occurring, the FOMs will be attenuated. This might be an indication the wrong codes were used above when specifying the primary task lesion ID. Or, it could be a hard reading task. 
 
-```{r, fig.width=10}
+```{r, , fig.width=15, fig.height=20}
 plotPTC(jaffile)
 ```
 
@@ -198,17 +206,14 @@ To support additional examination of the lesion detection data and the impact of
 
 The ``plotthreshold_reader`` function can plot, by default, the GEE estimates by modality. Or, one can specify an individual reader number to see how an individual reader performances across modalities. 
 
-```{r}
+```{r, fig.width=15, fig.height=20}
 plotthreshold_reader("testJAFROC.xlsx")
 ```
 
 If you desire to relabel / reorder the modality names, a call such as this can be considered. For this example, reader 1 data is selected. Note, the function calls the ``derivelesionsensitivty`` function above. This function formats the reader ID as a text field with a leading zero to ensure ordering of tables. As a result, reader "1" needs to be entered as readerid="01". 
 
-```{r}
-#use the order in which you want them plotted in this case
-# these same labels will be used later for additional plotting purposes
-flevels=c("B30_200", "I30_2_160", "B30_120", "I30_2_120", "I30_2_100")
-flabels=c("FBP 200 QRM", "IR 160 QRM", "FBP 120 QRM", "IR 120 QRM", "IR 100 QRM")
+```{r, fig.width=15, fig.height=20}
+
 plotthreshold_reader("testJAFROC.xlsx", readerid="01", addFactor=T, flevels=flevels, flabels =flabels)
 ```
 
@@ -244,80 +249,4 @@ kable(head(detections, n=20))
 
 The analysis requires the ``RJafroc`` package.   The logic and use of that package is left to that package's maintainer. In this section, a few additional plotting and results summaries are highlighted.  There are opportunities to do JAFROC and JAFROC1 FOMs. The difference is the "1" version includes non-localization in cases with target lesions in the calculation of the FOMs; otherwise they are excluded. The ``makeJAFROCfile``  also creates the default weights such that each lesion is weighted based on the number in the case. For example, if a case has two lesions, the weights for each lesion is 1/2. Different weights can be assigned but sometimes the justification is hard to describe. 
 
-The rJAFROC package has a way to save a text file out with the classically formatted JAFROC results format. This functionality is not shown in this program. 
-
-```{r}
-#### Conduct JAFROC analysis
-
-task.mrmc<-RJafroc::ReadDataFile(fileName="testJAFROC.xlsx")
-jafroc_results<-RJafroc::DBMHAnalysis(task.mrmc, fom="wJAFROC")
-```
-
-The resulting jafroc_results object has several elements that need to be parsed for graphical purposes. One of the things that needs to be done is labeling and ordering the modalities. The following code summarizes some approaches. The factor labels get reversed based on the order you want them to show in the final plot.
-
-The ``prepareestimates`` function is a helper function. It is used to derive the raw estimates along with the deltas. These are stored as a list.  Also note, that the RJafroc package produces estimates for a variety of analysis considerations by default. The most commonly used options will either be the "Fixed Reader, Random Case" (FRRC, small number of readers) or the "Random Reader, Random Case" (RRRC, larger number of readers). For this study, we will show both.
-
-```{r}
-## From the jafroc results above, go process them for subsequent plotting. 
-estimates<- prepareestimates(jafroc_results, "B30_200")
-## this is a list of two elements: the estimates [[1]] and the deltas to the reference [[2]]
-est<- estimates[[1]]
-# Format the results for easy printing
-## Note: variable strings flevels and flabels are defined above
-est$Treatment <- factor(est$Treatment, levels=flevels, labels=flabels)
-## For GGPLOT, we are going to reverse the order so the reference is at the top
-est$rTreatment <- with(est, factor(Treatment, levels = rev(levels(Treatment))))
-```
-
-Plot the figure using the regular ordering of the factor.
-```{r}
-plotFOM(est,"FRRC","Treatment")
-```
-
-Now plot the reverse ordered treatments
-```{r}
-plotFOM(est, "FRRC", "rTreatment")
-```
-
-
-This is a repeat of the above figure only this time electing to use the RRRC model.
-```{r}
-plotFOM(est, "RRRC", "rTreatment")
-```
-
-
-Each of the plot objects returns a ggplot2 object that can be saved using the figuresave function.
-
-```{r}
-pfom_rrrc <- plotFOM(est, "RRRC", "rTreatment")
-figuresave("fig1_fom_rrrc.png",pfom_rrrc)
-```
-
-
-Note: The figures for RRRC and FRRC will look very similar in most cases. The CIs will be slightly different as they are based on different variance estimation approaches. It's a good idea to use descriptive file names to help keep the various versions straight, particularly if multiple jafroc files are generated based on different threshold values. 
-
-
-## Delta FOM Plots
-
-Repeat the above now with delta FOM
-
-```{r}
-del<- estimates[[2]]
-del$Treatment <- with(del, factor(Treatment, levels=flevels, labels=flabels))
-del$rTreatment <- with(del, factor(Treatment, levels = rev(levels(Treatment))))
-### Notice the delta FOM figure has some additional options
-delta_fom_rrrc<-plotDeltaFOM(del,"RRRC","FBP 200 QRM",-.05,thetreatment = "rTreatment")
-```
-
-Plot of the Delta FOMs
-
-```{r}
-delta_fom_rrrc
-```
-
-
-
-# Concluding remarks
-
-The package's functions are still being tweaked. Use is evolving, and user feedback is appreciated. 
-
+The RJafroc package has a way to save a text file out with the classically formatted JAFROC results format. This functionality is not shown in this program. 

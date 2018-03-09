@@ -5,9 +5,8 @@
 #' @param JAFROCfilename The is the excel file produced by the makeJAFROCfile function. This file is the source of most JAFROC analyses. 
 #' @param sensitivitythreshold A numeric value representing the value that all primary task confidence must be greater than to be considered a true detection. The default value is 0, which impies that the reader must assign some non-zero primary task confidence to the detection for it to be considered a true positive.
 #' @return A dataframe with lesion sensitivity 
-#' @examples
-#' derivelesionsens("testJAFROC.xlsx")
-#' derivelesionsens("testJAFROC.xlsx", sensitivitythreshold=50) 
+#' @export
+
 
 derivelesionsens <- function(JAFROCfilename,sensitivitythreshold=0){
   
@@ -49,7 +48,7 @@ derivelesionsens <- function(JAFROCfilename,sensitivitythreshold=0){
   
   sens_reader <- dplyr::bind_cols(sens_reader, sens_reader_def1)
   ## make some confidence intervals ##.#% (##.#%, ##.#%)
-  sens_reader$sensitivity<-binCI(sens_reader$rawsensitivity, sens_reader$sens_lci, sens_reader$sens_uci,the100=100, thedigits=1)
+  sens_reader$sensitivity<-binCI(sens_reader$rawsensitivity, sens_reader$sens_lci, sens_reader$sens_uci)
   
   sens_reader$sensfrac <- paste0(sens_reader$y, "/", sens_reader$n)
   
@@ -76,7 +75,7 @@ derivelesionsens <- function(JAFROCfilename,sensitivitythreshold=0){
     sensitivity_gee <- dplyr::bind_rows(sensitivity_gee,tempdf)
   }
   
-  sensitivity_gee$sensitivity <- binCI(sensitivity_gee$rawsensitivity, sensitivity_gee$sens_lci, sensitivity_gee$sens_uci,the100=100, thedigits=1)
+  sensitivity_gee$sensitivity <- binCI(sensitivity_gee$rawsensitivity, sensitivity_gee$sens_lci, sensitivity_gee$sens_uci)
   #print(head(sens_reader))
   #print(head(sensitivity_gee))
   

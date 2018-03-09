@@ -16,6 +16,3 @@ plotPTC(JAFROCfilename)
 This function plots a stacked histogram indicating the lesion localizations and non-lesion localizations by confidence rating. 
 The function returns a ggplot object.
 }
-\examples{
-plotPTC("testJAFROC.xlsx")
-}

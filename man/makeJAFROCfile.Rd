@@ -17,6 +17,3 @@ This function does not have a return. It produces a saved output file for later 
 \description{
 This is a key function in the JAFROC analysis paradigm. This is the datasource for the external package RJafroc. It also holds the data in a normalize function to support many analyses for this package.
 }
-\examples{
-makeJAFROCfile(flowchartdata=raw2,outputfile="testJAFROC.xlsx")
-}

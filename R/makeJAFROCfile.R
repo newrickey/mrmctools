@@ -5,8 +5,7 @@
 #' @param flowchartdata This is a dataframe produced by the function applyflowchart. 
 #' @param outputfile A text string for an excel file to be produced by the function. The file name can have the path and needs to end in .xlsx. 
 #' @return This function does not have a return. It produces a saved output file for later use.
-#' @examples 
-#' makeJAFROCfile(flowchartdata=raw2,outputfile="testJAFROC.xlsx")
+#' @export
 
 
 makeJAFROCfile <- function(flowchartdata, outputfile){

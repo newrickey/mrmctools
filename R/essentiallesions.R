@@ -12,9 +12,8 @@
 #' @param JAFROCfilename The is the excel file produced by the makeJAFROCfile function. This file is the source of most JAFROC analyses. 
 #' @param refname A text string with the exact character string that corresponds to the reference (or routine) dose
 #' @param essentiallesionfilename  A text string that if supplied, represents the file name produced with the working tables for the essential lesion detections. If the parameter is left null, the detections dataset is return that tabulations of the detection rates for each lesion and a determination as to whether it is an essential lesion. 
-#' @examples
-#' essentiallesions("testJAFROC.xlsx")
-#' essentiallesions("testJAFROC.xlsx", "essentiallesions.xlsx")
+#' @export
+
 
 
 

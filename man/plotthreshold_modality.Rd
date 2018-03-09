@@ -9,6 +9,8 @@ plotthreshold_modality(jafrocfile, modality = NA, modalitylabel = NA,
   getminmax = F)
 }
 \arguments{
+\item{jafrocfile}{The is the excel file produced by the makeJAFROCfile function. This file is the source of most JAFROC analyses.}
+
 \item{modality}{The internal variable name for the modality to be printed.}
 
 \item{modalitylabel}{A character string to replace the variable name in the figure.}
@@ -20,8 +22,6 @@ plotthreshold_modality(jafrocfile, modality = NA, modalitylabel = NA,
 \item{geecolor}{Hexidecimal color code for the GEE line. Defaults to black.}
 
 \item{getminmax}{A logical parameter to indicate a call to the \code{getMaxConfidence} function. If set to true, the figure will be truncated at this limit.}
-
-\item{JAFROCfilename}{The is the excel file produced by the makeJAFROCfile function. This file is the source of most JAFROC analyses.}
 }
 \value{
 \code{ggplot2} figure object.

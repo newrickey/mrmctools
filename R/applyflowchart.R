@@ -10,8 +10,8 @@
 #' @param includeA A parameter, defaulted to True, that allows one to exclude type A reader marks. These are reader marks where they do not match any lesions in the reference set and the reader classifies them as a non-primary task lesion. Given the reader's confidence could be non-negigble, under most circumstations, these reader marks should be retained. Setting this to false will exclude these markings from all subsequent analyses. 
 #' @param includeC A parameter, defaulted to True, that allows one to exclude type C reader marks. These are reader marks where both the reader and reference localize the same non-primary task lesion.  Given the reader's confidence could be non-negigble, under most circumstations, these reader marks should be retained. Setting this to false will exclude these markings from all subsequent analyses.
 #' @return A new dataframe that appends several helper columns onto the input dataset. 
-#' @examples
-#' applyflowchart(raw1, PTcodes=c("91"), PTCthreshold = 1, includeA=T,includeC=T)
+#' @export
+
 
 
 applyflowchart <- function(rawdata, PTcodes, PTCthreshold,includeA=T,includeC=T){

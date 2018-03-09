@@ -1,13 +1,14 @@
 #' Plot reader sensitivity for a particular modality.
 #' 
 #' This function produces a plot that shows how reader detections fall off in sensitivity as the sensitivity detection threshold increases.
-#' @param JAFROCfilename The is the excel file produced by the makeJAFROCfile function. This file is the source of most JAFROC analyses. 
+#' @param jafrocfile The is the excel file produced by the makeJAFROCfile function. This file is the source of most JAFROC analyses. 
 #' @param modality The internal variable name for the modality to be printed.
 #' @param modalitylabel A character string to replace the variable name in the figure. 
 #' @param includeGEE Logical parameter to include the GEE line on the figure. Defaults to true.
 #' @param readercolor Hexidecimal color code for the reader lines. Defaults to light grey.
 #' @param geecolor Hexidecimal color code for the GEE line. Defaults to black.
 #' @param getminmax  A logical parameter to indicate a call to the \code{getMaxConfidence} function. If set to true, the figure will be truncated at this limit.
+#' @export
 #' @return \code{ggplot2} figure object.
 
 

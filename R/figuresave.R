@@ -6,8 +6,8 @@
 #' @param filename The desired PNG filename, with extension
 #' @param figobject  The figure object (ggplot object) to be saved
 #' @param figheight  The desired heigh in CM. The default is set at 15 cm, which seems to work fine without further specification
-#' @examples
-#' figuresave("PTCbyBins.PNG", plotPTC("testJAFROC.xlsx"))
+#' @export
+
 
 figuresave <- function(filename,figobject, figheight=15){
 paspect <- 4/3

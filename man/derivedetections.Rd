@@ -18,7 +18,3 @@ A dataframe with the detection results. For this determination, a detection is a
 This function tabulates the number of true positives dections for each lesion at each modality.
 The function reads the standard excel file that contains data to support JAFROC analyses.
 }
-\examples{
-derivedetections("testJAFROC.xlsx")
-derivedetections("testJAFROC.xlsx", wide=F)
-}

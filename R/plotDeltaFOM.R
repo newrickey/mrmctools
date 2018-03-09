@@ -8,6 +8,7 @@
 #' @param refdose A text string specifying the name of the reference dose that should be printed on x-axis label
 #' @param nonilimit A numeric value to indicate where a dashed line should be drawn for a non-inferiority line to be drawn
 #' @param thetreatment A text string that indicates the name of the variable that pertains to the name of the modality. The JAFROC analysis will automatically use Treatment as this name. If for some reason the name is changed, this will allow that new name to be specified.
+#' @export
 #' @return \code{ggplot2} figure object.
 
 

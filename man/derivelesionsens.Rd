@@ -17,7 +17,3 @@ A dataframe with lesion sensitivity
 \description{
 This function calculates a lesion specific sensitivity analysis. The denominator will be the number of lesions. The numerator will be the number of detections, by reader and modality, greater than the threshold set. Note, this function uses only greater than in the determination. For exmaple, if the value 0 is used, only detections with primary task confidence > 0 will be considered. It is possible to inconsistencies in thresholds between this threshold and the overall study threshold set in the applyflowchart function.  In addition to reader-modality-specific results, the GEE estimate of the common sensitivity by modality is returned.
 }
-\examples{
-derivelesionsens("testJAFROC.xlsx")
-derivelesionsens("testJAFROC.xlsx", sensitivitythreshold=50) 
-}

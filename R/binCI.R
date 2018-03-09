@@ -8,13 +8,14 @@
 #' @param ndigits The number of digits following the decimal point. The default value is one decimal point.
 #' @param inpct If true, the estimates are multipled by 100 to form whole numbers. The default value is T.
 #' @return The text string that combines the three elements of confidence inteval for easy printing.
+#' @export
 #' @examples
 #' binCI(0.2332, 0.1512, 0.3192)
-#' binCI(0.2332, 0.1512, 0.3192, 2, T)
-#' binCI(0.2332, 0.1512, 0.3192, 4, F)
+#' binCI(0.2332, 0.1512, 0.3192, 2, TRUE)
+#' binCI(0.2332, 0.1512, 0.3192, 4, FALSE)
 
 
-binCI <- function(est, lower, upper,ndigits=1,inpct=T){
+binCI <- function(est, lower, upper,ndigits=1,inpct=TRUE){
   if (inpct) {
     the100 <- 100
   } else {

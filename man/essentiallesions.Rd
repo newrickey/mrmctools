@@ -23,7 +23,3 @@ the excel file will also include a listing of just the essential lesions with th
 and a results summary that includes an analysis of the number of correct interpretations. 
 See the vignette for the interpretations of essential lesions.
 }
-\examples{
-essentiallesions("testJAFROC.xlsx")
-essentiallesions("testJAFROC.xlsx", "essentiallesions.xlsx")
-}

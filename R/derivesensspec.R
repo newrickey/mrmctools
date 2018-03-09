@@ -13,8 +13,7 @@
 #' @param sensitivitythreshold A numeric value representing the primary task confidence value that true positive localization need to be greater than to be considered a true detectioin. 
 #' @param specificitythreshold A numeric value representing the primary task confidence value that a non-localization needs to be greater than to be counted as a false positive within a normal case.
 #' @return A dataframe with results
-#' @examples
-#' derivesensspec("testJAFROC.xlsx", 10, 10)
+#' @export
 
 
 
@@ -128,7 +127,7 @@ sens_reader_def1 <- dplyr::select(sens_reader_def1, - method)
 sens_reader <- dplyr::bind_cols(sens_reader, sens_reader_def1)
 
 ## make some confidence intervals ##.#% (##.#%, ##.#%)
-sens_reader$sensitivity<-binCI(sens_reader$rawsensitivity, sens_reader$sens_lci, sens_reader$sens_uci,the100=100, thedigits=1)
+sens_reader$sensitivity<-binCI(sens_reader$rawsensitivity, sens_reader$sens_lci, sens_reader$sens_uci)
 
 sens_reader$sensfrac <- paste0(sens_reader$y, "/", sens_reader$n)
 
@@ -145,7 +144,7 @@ spec_reader_def1 <- dplyr::select(spec_reader_def1, - method)
 spec_reader <- dplyr::bind_cols(spec_reader, spec_reader_def1)
 
 ## make some confidence intervals ##.#% (##.#%, ##.#%)
-spec_reader$specificity<-binCI(spec_reader$rawspecificity, spec_reader$spec_lci, spec_reader$spec_uci,the100=100, thedigits=1)
+spec_reader$specificity<-binCI(spec_reader$rawspecificity, spec_reader$spec_lci, spec_reader$spec_uci)
 spec_reader$specfrac <- paste0(spec_reader$y, "/", spec_reader$n)
 #spec_reader <- dplyr::select(spec_reader, -n, -y, -y1_check, -n1_check, -p1_check)
 spec_reader <- dplyr::select(spec_reader, ModalityID, ReaderID, specfrac, specificity, rawspecificity, spec_lci, spec_uci)
@@ -176,7 +175,7 @@ for (mods in Modality){
   sensitivity_gee <- dplyr::bind_rows(sensitivity_gee,tempdf)
 }
 
-sensitivity_gee$sensitivity <- binCI(sensitivity_gee$rawsensitivity, sensitivity_gee$sens_lci, sensitivity_gee$sens_uci,the100=100, thedigits=1)
+sensitivity_gee$sensitivity <- binCI(sensitivity_gee$rawsensitivity, sensitivity_gee$sens_lci, sensitivity_gee$sens_uci)
 
 
 specificity_gee <-NULL
@@ -195,7 +194,7 @@ for (mods in Modality){
   specificity_gee <- dplyr::bind_rows(specificity_gee,tempdf)
 }
 
-specificity_gee$specificity <- binCI(specificity_gee$rawspecificity, specificity_gee$spec_lci, specificity_gee$spec_uci,the100=100, thedigits=1)
+specificity_gee$specificity <- binCI(specificity_gee$rawspecificity, specificity_gee$spec_lci, specificity_gee$spec_uci)
 
 geeDA <- dplyr::inner_join(sensitivity_gee, specificity_gee, by=c("ReaderID", "ModalityID"))
 rawDA$ReaderID <- as.character(rawDA$ReaderID)

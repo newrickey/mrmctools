@@ -6,8 +6,7 @@
 #' 
 #' @param JAFROCfilename The is the excel file produced by the makeJAFROCfile function. This file is the source of most JAFROC analyses. 
 #' @return Returns the smallest maximum confidence score across all readers (and modalities). 
-#' @examples 
-#' getMaxConfidence("testJAFROC.xlsx")
+#' @export
 
 
 getMaxConfidence <- function(JAFROCfilename){
@@ -15,7 +14,7 @@ getMaxConfidence <- function(JAFROCfilename){
   
   ## group the reader / markings to give the maximum value
   
-  maxvalues <- TP %>% dplyr::group_by(ReaderID) %>% summarize(maxRating = max(TP_Rating))
+  maxvalues <- TP %>% dplyr::group_by(ReaderID) %>% dplyr::summarize(maxRating = max(TP_Rating))
   minmax <- min(maxvalues$maxRating)
   return(minmax)
 }

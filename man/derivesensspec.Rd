@@ -26,6 +26,3 @@ requires no false positive ROIs with confidence greater than the threshold.
 In addition to reader-modality-specific results, the GEE estimate of the 
 common sensitivity by modality is returned.
 }
-\examples{
-derivesensspec("testJAFROC.xlsx", 10, 10)
-}

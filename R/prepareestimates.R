@@ -4,6 +4,7 @@
 #' 
 #' @param JAFROCresults This is object produced by the package \code{RJafroc}. See the vingette for details. 
 #' @param refname  Character string that has the internal value indicating the reference dose for the study.
+#' @export
 #' @return Array filled with results. 
 
  prepareestimates <- function(JAFROCresults, refname){
@@ -56,7 +57,7 @@
   deltaestimates$treatment2 <- as.character(deltaestimates$treatment2)
   
   # now filter to have only the estimates for the reference dose included
-  deltaestimates <- filter(deltaestimates, deltaestimates$treatment1 == refname | deltaestimates$treatment2==refname)
+  deltaestimates <- dplyr::filter(deltaestimates, deltaestimates$treatment1 == refname | deltaestimates$treatment2==refname)
   
   
   

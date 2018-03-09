@@ -8,6 +8,8 @@ plotthreshold_reader(jafrocfile, readerid = "GEE", addFactor = F,
   flevels = NA, flabels = NA, getminmax = F)
 }
 \arguments{
+\item{jafrocfile}{The is the excel file produced by the makeJAFROCfile function. This file is the source of most JAFROC analyses.}
+
 \item{readerid}{Character string for the reader ID. The default is "GEE" which means the figure will only show the GEE lines by modality.}
 
 \item{addFactor}{If set to true, the function will use the flevels and flabels to format the modalities}
@@ -17,8 +19,6 @@ plotthreshold_reader(jafrocfile, readerid = "GEE", addFactor = F,
 \item{flabels}{Text object that contains the factor labels for formatted printing}
 
 \item{getminmax}{A logical parameter to indicate a call to the \code{getMaxConfidence} function. If set to true, the figure will be truncated at this limit.}
-
-\item{JAFROCfilename}{The is the excel file produced by the makeJAFROCfile function. This file is the source of most JAFROC analyses.}
 }
 \value{
 \code{ggplot2} figure object.

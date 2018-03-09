@@ -17,6 +17,3 @@ This is a helper function to find the maximum confidence level reported by reade
 This function avoids a bug where some readers will not report confidence to 100 for some lesions. 
 This causes a for loop to error out in the \code{plotthresholds*} functions.
 }
-\examples{
-getMaxConfidence("testJAFROC.xlsx")
-}

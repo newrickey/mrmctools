@@ -17,6 +17,3 @@ figuresave(filename, figobject, figheight = 15)
 This is a simple wrapper function for \code{ggsave} to make a 4:3 ratio image that seems to produce 
 saved PNGs that look reasonable from figures generated in this package.
 }
-\examples{
-figuresave("PTCbyBins.PNG", plotPTC("testJAFROC.xlsx"))
-}

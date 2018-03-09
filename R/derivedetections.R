@@ -6,9 +6,8 @@
 #' @param JAFROCfilename The is the excel file produced by the makeJAFROCfile function. This file is the source of most JAFROC analyses. 
 #' @param wide  Logical flag that is used to indicate whether a wide (columns for various modalities) or tall (data rows are indexed by modality) dataset is returned. The default is a wide datafile.
 #' @return  A dataframe with the detection results. For this determination, a detection is any localization where the primary task confidence is greater than or equal to the study minimum detection confidence as set in the \code{applyflowchart} function. 
-#' @examples
-#' derivedetections("testJAFROC.xlsx")
-#' derivedetections("testJAFROC.xlsx", wide=F)
+#' @export
+
 
 derivedetections <- function(JAFROCfilename,wide=T){
 datafilename <- JAFROCfilename
@@ -49,9 +48,21 @@ detections$RefID <- factor(detections$RefID)
 detections$ModalityID <- factor(detections$ModalityID)
 detectionswide <- tidyr::spread(detections, ModalityID, totaldetections)
 
+## now add on some additional keys
+keys <- readxl::read_excel(datafilename, "keys")
+keys <- dplyr::select(keys, -caseindex)
+reflesions <- dplyr::filter(Truthsaved, LesionID != 0)
+keyref <- dplyr::inner_join(keys, reflesions, by="CaseID")
+keyref$RefID <- factor(keyref$LesionID)
+keyref <- dplyr::select(keyref, RefID, RefDataID)
+keyrefdet <- dplyr::inner_join( keyref,detectionswide, by="RefID")
+
+detections_out <- dplyr::inner_join(keyref, detections, by="RefID")
+detectionswide_out <- keyrefdet
+
 if (wide) {
-return(detectionswide)
+  return(detectionswide_out)
 } else {
-  return(detections)
+  return(detections_out)
 }
 }

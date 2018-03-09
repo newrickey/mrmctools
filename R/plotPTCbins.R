@@ -4,6 +4,7 @@
 #' 
 #' @param flowdata A dataframe that has been returned by the applyflowchart function
 #' @param PTtext A text string with the characters that is used describe the primary task. The function defaults to the generic text "PT".
+#' @export
 
 
 

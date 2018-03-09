@@ -36,11 +36,11 @@ readworkstationfile(workstationdata, deidentificationdata, refname, caseindex,
 
 \item{ObserverROIID}{Text string for the variable name for the reader's unique ROI database ID.}
 
+\item{ReaderFullID}{Text string with the username (typically) used to log into the study. This represents the starting point for the reader identification in the dataset.}
+
 \item{anonymizereader}{A logical to replace the internal reader ID with an anonymized reader ID by default. Setting this to false will possibly identify the data in the analysis.}
 
 \item{expandcases}{A logical to ensure that the joins that happen in the program include all combinations of readers and modalities. Generally this needs to remain as True.}
-
-\item{ReaderFUllID}{Text string with the username (typically) used to log into the study. This represents the starting point for the reader identification in the dataset.}
 }
 \value{
 A dataframe with standardized names

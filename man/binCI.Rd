@@ -4,7 +4,7 @@
 \alias{binCI}
 \title{Combine three numbers into a formatted text string}
 \usage{
-binCI(est, lower, upper, ndigits = 1, inpct = T)
+binCI(est, lower, upper, ndigits = 1, inpct = TRUE)
 }
 \arguments{
 \item{est}{The estimated quantity.}
@@ -25,6 +25,6 @@ Function to make a formatted text string version of a confidence interval.
 }
 \examples{
 binCI(0.2332, 0.1512, 0.3192)
-binCI(0.2332, 0.1512, 0.3192, 2, T)
-binCI(0.2332, 0.1512, 0.3192, 4, F)
+binCI(0.2332, 0.1512, 0.3192, 2, TRUE)
+binCI(0.2332, 0.1512, 0.3192, 4, FALSE)
 }
