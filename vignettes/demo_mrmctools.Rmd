@@ -268,6 +268,91 @@ kable(head(detections, n=20))
 
 
 
+# Part 2: JAFROC Analysis
+
+## Conducting the JAFROC Analysis
+
+The analysis requires the ``RJafroc`` package.   The logic and use of that package is left to that package's maintainer. In this section, a few additional plotting and results summaries are highlighted.  There are opportunities to do JAFROC and JAFROC1 FOMs. The difference is the "1" version includes non-localization in cases with target lesions in the calculation of the FOMs; otherwise they are excluded. The ``makeJAFROCfile``  also creates the default weights such that each lesion is weighted based on the number in the case. For example, if a case has two lesions, the weights for each lesion is 1/2. Different weights can be assigned but sometimes the justification is hard to describe. In general, the weighted analysis is preferred to avoid one case with a large number of lesions having a unreasonable influence on the analysis. The package ``RJafroc`` has a vignette that contains many more details about the particular aspects of the analysis that is being conducted here.
+
+The RJafroc package has a way to save a text file out with the classically formatted JAFROC results format. This functionality is not shown activated in this vignette but the code is provided below. 
+
+
+
+
+```{r}
+#### Conduct JAFROC analysis
+library(RJafroc)
+task.mrmc<-RJafroc::DfReadDataFile(fileName=jaffile)
+jafroc_results<-RJafroc::StSignificanceTesting(task.mrmc, FOM="wJAFROC", method="DBMH")
+
+## output the text report: commented out to not run here
+# RJafroc::UtilOutputReport(method="DBMH", FOM="wJAFROC", dataset=task.mrmc, showWarnings=FALSE)
+```
+
+
+The resulting jafroc_results object has several elements that need to be parsed for graphical purposes. One of the things that needs to be done is labeling and ordering the modalities. The following code summarizes some approaches. The factor labels get reversed based on the order you want them to show in the final plot.
+
+## Function ``prepareestimates()``
+
+The ``prepareestimates`` function is a helper function. It is used to derive the raw estimates along with the deltas. These are stored as a list.  Also note, that the RJafroc package produces estimates for a variety of analysis considerations by default. The most commonly used options will either be the "Fixed Reader, Random Case" (FRRC, small number of readers) or the "Random Reader, Random Case" (RRRC, larger number of readers). For this study, we will show both.
+
+```{r}
+## From the jafroc results above, go process them for subsequent plotting. 
+estimates<- prepareestimates(jafroc_results, refdosename)
+## this is a list of two elements: the estimates [[1]] and the deltas to the reference [[2]]
+est<- estimates[[1]]
+# Format the results for easy printing
+## Note: variable strings flevels and flabels are defined above
+est$Treatment <- factor(est$Treatment, levels=flevels, labels=flabels)
+## For GGPLOT, we are going to reverse the order so the reference is at the top -- this is of course, optional
+est$rTreatment <- with(est, factor(Treatment, levels = rev(levels(Treatment))))
+```
+
+## Function ``plotFOM()``
+
+Plot the figure using the regular ordering of the factor. This figure requests the fixed reader, random case modelling assumption.
+
+```{r, fig.width=9, fig.height=6}
+plotFOM(est,"FRRC","Treatment")
+```
+
+Now plot the reverse ordered treatments
+```{r, fig.width=9, fig.height=6}
+plotFOM(est, "FRRC", "rTreatment")
+```
+
+
+This is a repeat of the above figure only this time electing to use the random reader, random case model.
+```{r, fig.width=9, fig.height=6}
+plotFOM(est, "RRRC", "rTreatment")
+```
+
+As with the previous plotting functions, the plot functions can be saved to an object to facilitate saving using ``figuresave()``. 
+
+
+Note: The figures for RRRC and FRRC will look very similar in most cases. The CIs will be slightly different as they are based on different variance estimation approaches. It is a good idea to use descriptive file names to help keep the various versions straight, particularly if multiple jafroc files are generated based on different threshold values. 
+
+
+## Function ``plotDeltaFOM()``
+
+Repeat the above now with delta FOM (i.e., change in FOM estimates relative to the reference dose)
+
+```{r}
+del<- estimates[[2]]
+del$Treatment <- with(del, factor(Treatment, levels=flevels, labels=flabels))
+del$rTreatment <- with(del, factor(Treatment, levels = rev(levels(Treatment))))
+### Notice the delta FOM figure has some additional options to control the formatting
+delta_fom_rrrc<-plotDeltaFOM(del,"RRRC",refdoselabel,-.05,thetreatment = "rTreatment")
+```
+
+
+```{r, fig.width=9, fig.height=6}
+delta_fom_rrrc
+```
+
 # Next Steps
 
-The next step in the analysis is the actual MRMC analysis. This analysis utilizes the ``RJafroc`` package.  The implementation of the analysis along with this package's associated additional graphics is demonstrated in the Step 2 vignette. 
+At this point, the primary analysis is complete. One could further modify the plot objects, which are standard ggplot2 objects, to refine the layout. Or, conduct sensitivity analyses based on various modeling assumptions.  Future package updates may include additional graphical features.
+
+Please post comments and questions to [github](https://github.com/rickeycarter/mrmctools) @rickeycarter
+
