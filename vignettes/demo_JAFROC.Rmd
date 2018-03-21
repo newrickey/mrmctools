@@ -112,4 +112,4 @@ delta_fom_rrrc
 
 At this point, the primary analysis is complete. One could further modify the plot objects, which are standard ggplot2 objects, to refine the layout. Or, conduct sensitivity analyses based on various modeling assumptions.  Future package updates may include additional graphical features.
 
-Please post comments and questions to [github](https://github.com/rickeycarter/mrmctools).
+Please post comments and questions to [github](https://github.com/rickeycarter/mrmctools) @rickeycarter
