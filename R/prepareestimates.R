@@ -27,7 +27,7 @@
   
   pointestimates <- dplyr::bind_rows(p1,p2,p3)
   
-  pointestimates$FOM_CI <- binCI(pointestimates$Area, pointestimates$`CI Lower`, pointestimates$`CI Upper`, the100=1,thedigits=3)
+  pointestimates$FOM_CI <- binCI(pointestimates$Area, pointestimates$`CI Lower`, pointestimates$`CI Upper`)
   pointestimates <- dplyr::select(pointestimates, method, Treatment, Area, `CI Lower`, `CI Upper`, FOM_CI)
   ## Get the differences in estimates
   
@@ -73,7 +73,7 @@
   upperci <-  ifelse(raw_cidiffs$reversal == 0, raw_cidiffs$CI.Upper, -raw_cidiffs$CI.Lower)
   
   cidiffs <- data.frame(method, comparison, Treatment, estimate, lowerci, upperci)  
-  cidiffs$deltaFOM_CI <- binCI(cidiffs$estimate, cidiffs$lowerci, cidiffs$upperci, the100=1,thedigits=3)
+  cidiffs$deltaFOM_CI <- binCI(cidiffs$estimate, cidiffs$lowerci, cidiffs$upperci)
   
   return(list(pointestimates, cidiffs))
   

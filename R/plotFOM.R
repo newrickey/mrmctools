@@ -18,7 +18,7 @@ FOMplot <- ggplot(fomsummary, aes(Area, eval(parse(text=thetreatment)), label=FO
   expand_limits(x=c(0.50,1.00)) +ggtitle("JAFROC Figure of Merits (FOM)") +
   xlab("Estimated FOM (95% CI)") +
   ylab(" ") +
-  theme_bw(base_size = 18) 
+  theme_bw() 
 return(FOMplot)
 }
 

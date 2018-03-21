@@ -49,7 +49,7 @@ p <- ggplot(temp, aes(x=bin,y=ObserverPTC, color=bin)) + geom_violin() +
     xlab("")+
     ylim(0,100) +
     ggtitle(" Reference Classification : Reader Classification ") +
-    theme_grey(base_size = 18) + theme(legend.position="none",axis.text.x = element_text(angle = 40, hjust = 1))
+    theme_bw() + theme(legend.position="none",axis.text.x = element_text(angle = 40, hjust = 1))
   
   
   

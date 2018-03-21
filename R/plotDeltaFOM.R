@@ -26,7 +26,7 @@ deltaFOMplot <- ggplot(plotdf, aes(estimate, eval(parse(text=thetreatment)), lab
   expand_limits(x=c(-0.10,0.05)) +ggtitle("Estimated Difference in JAFROC FOM") +
   xlab(paste0("Difference from  ",refdose, " (95% CI)")) +
   ylab(" ") +
-  theme_bw(base_size = 18) 
+  theme_bw() 
 
 return(deltaFOMplot)
 }
