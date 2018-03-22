@@ -13,7 +13,6 @@
 #' @export
 
 
-
 applyflowchart <- function(rawdata, PTcodes, PTCthreshold,includeA=T,includeC=T){
   
   
